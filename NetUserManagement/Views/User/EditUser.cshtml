@@ -1,0 +1,38 @@
+﻿@model EntityLayer.Concrete.User
+@{
+    ViewBag.Title = "EditUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="card card-solid">
+        <div class="card-body pb-0">
+
+            <form class="form-group" method="post">
+                @Html.Label("Id")
+                @Html.TextBoxFor(x => x.Id, new { @class = "form-control" })
+                <br />
+                @Html.Label("Kullanıcı Adı")
+                @Html.TextBoxFor(x => x.Username, new { @class = "form-control" })
+                <br />
+                @Html.Label("Şifre")
+                @Html.TextAreaFor(x => x.Password, new { @class = "form-control" })
+                <br />
+                @Html.Label("İsim")
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                <br />
+                @Html.Label("Soyisim")
+                @Html.TextBoxFor(x => x.Surname, new { @class = "form-control" })
+                <br />
+                @Html.Label("Mail Adresi")
+                @Html.TextBoxFor(x => x.Mail, new { @class = "form-control" })
+                <br />
+                @Html.Label("Telefon Numarası")
+                @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control" })
+                <br />
+                <button class="btn btn-info">Kaydet</button>
+            </form>
+
+        </div>
+    </div>
+</div>
