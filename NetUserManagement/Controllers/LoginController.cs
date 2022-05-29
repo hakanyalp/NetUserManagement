@@ -13,6 +13,25 @@ namespace NetUserManagement.Controllers
 {
     public class LoginController : Controller
     {
+        UserManager userManager = new UserManager(new EfUserDal());
+        public LoginController()
+        {
+            User u = userManager.GetUserByUsername("admin");
+            if (u == null)
+            {
+                userManager.AddUser(new User()
+                {
+                    Username = "admin",
+                    Password = "123qwe",
+                    Name = "Admin",
+                    Surname = "System",
+                    Mail = "admin@avansas.com",
+                    PhoneNumber = "2163657802",
+                    Role = Role.Admin
+                });
+            }
+        }
+
         [HttpGet]
         public ActionResult UserLogin()
         {
@@ -21,7 +40,6 @@ namespace NetUserManagement.Controllers
         [HttpPost]
         public JsonResult UserLogin(User u)
         {
-            UserManager userManager = new UserManager(new EfUserDal());
             User _user = userManager.GetUserByLogin(u.Username, u.Password);
 
             if (_user != null)
