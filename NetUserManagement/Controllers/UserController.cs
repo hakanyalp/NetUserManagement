@@ -20,7 +20,7 @@ namespace NetUserManagement.Controllers
         public ActionResult Index()
         {
             User sessionUser = userManager.GetUserByUsername(Session["Username"].ToString());
-            var users = userManager.GetAll();
+            var users = userManager.GetList();
             ViewBag.Role = sessionUser.Role;
             return View(users);
         }
@@ -85,7 +85,8 @@ namespace NetUserManagement.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteUser(int id)
         {
-            userManager.DeleteUser(id);
+            User _user = userManager.FindUser(id);
+            userManager.DeleteUser(_user);
             return RedirectToAction("Index");
         }
 

@@ -17,7 +17,7 @@ namespace NetUserManagement.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult UserLogin(User u)
+        public JsonResult UserLogin(User u)
         {
             Context c = new Context();
             User _user = c.Users.FirstOrDefault(x => x.Username == u.Username && x.Password == u.Password);
@@ -26,11 +26,21 @@ namespace NetUserManagement.Controllers
             {
                 FormsAuthentication.SetAuthCookie(_user.Username, false);
                 Session["Username"] = _user.Username;
-                return RedirectToAction("Index", "User");
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+                //return RedirectToAction("Index", "User");
             }
             else
             {
-                return RedirectToAction("UserLogin", "Login");
+                _user = c.Users.FirstOrDefault(x => x.Username == u.Username);
+                if (_user != null)
+                {
+                    return Json(new { Success = false, Error = "Şifreniz hatalıdır " }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { Success = false, Error = "Kullanıcı bulunamadı " }, JsonRequestBehavior.AllowGet);
+                }
+                //return RedirectToAction("UserLogin", "Login");
             }
         }
     }

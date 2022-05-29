@@ -18,23 +18,6 @@ namespace BusinessLayer.Concrete
             _userDal = userDal;
         }
 
-        Repository<User> repo = new Repository<User>();
-        public List<User> GetAll()
-        {
-            return repo.List();
-        }
-
-        public User FindUser(int id)
-        {
-            return repo.Find(x => x.Id == id);
-        }
-
-        public void DeleteUser(int id)
-        {
-            User u = repo.Find(x => x.Id == id);
-            repo.Delete(u);
-        }
-
         public List<User> GetList()
         {
             return _userDal.List();
@@ -45,11 +28,6 @@ namespace BusinessLayer.Concrete
             _userDal.Insert(user);
         }
 
-        public User GetUserByUsername(string username)
-        {
-            return _userDal.Find(x => x.Username == username);
-        }
-
         public void DeleteUser(User user)
         {
             _userDal.Delete(user);
@@ -58,6 +36,16 @@ namespace BusinessLayer.Concrete
         public void UpdateUser(User user)
         {
             _userDal.Update(user);
+        }
+
+        public User FindUser(int id)
+        {
+            return _userDal.Find(x => x.Id == id);
+        }
+
+        public User GetUserByUsername(string username)
+        {
+            return _userDal.Find(x => x.Username == username);
         }
     }
 }
