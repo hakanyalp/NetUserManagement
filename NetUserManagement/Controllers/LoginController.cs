@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Concrete;
+﻿using BusinessLayer.Concrete;
+using DataAccessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -19,8 +21,8 @@ namespace NetUserManagement.Controllers
         [HttpPost]
         public JsonResult UserLogin(User u)
         {
-            Context c = new Context();
-            User _user = c.Users.FirstOrDefault(x => x.Username == u.Username && x.Password == u.Password);
+            UserManager userManager = new UserManager(new EfUserDal());
+            User _user = userManager.GetUserByLogin(u.Username, u.Password);
 
             if (_user != null)
             {
@@ -31,7 +33,7 @@ namespace NetUserManagement.Controllers
             }
             else
             {
-                _user = c.Users.FirstOrDefault(x => x.Username == u.Username);
+                _user = userManager.GetUserByLogin(u.Username, u.Password);
                 if (_user != null)
                 {
                     return Json(new { Success = false, Error = "Şifreniz hatalıdır " }, JsonRequestBehavior.AllowGet);

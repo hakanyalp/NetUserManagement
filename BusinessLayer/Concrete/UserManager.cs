@@ -47,5 +47,10 @@ namespace BusinessLayer.Concrete
         {
             return _userDal.Find(x => x.Username == username);
         }
+
+        public User GetUserByLogin(string username, string password)
+        {
+            return _userDal.Find(x => x.Username == username && x.Password == password);
+        }
     }
 }

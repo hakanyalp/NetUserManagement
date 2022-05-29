@@ -36,6 +36,9 @@
                 @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control" })
                 @Html.ValidationMessageFor(x => x.PhoneNumber)
                 <br />
+                @Html.Label("Kullanıcı rolü")
+                @Html.EnumDropDownListFor(x => x.Role, new { @class = "form-control" })
+                <br />
                 <button class="btn btn-info">Kaydet</button>
                 <a href="@Url.Action("Index", "User")" style="margin-left:10px">İptal</a>
             </form>
