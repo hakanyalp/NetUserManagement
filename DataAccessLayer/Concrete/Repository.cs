@@ -19,10 +19,11 @@ namespace DataAccessLayer.Concrete
             _object = c.Set<T>();
         }
 
-        public int Delete(T p)
+        public void Delete(T p)
         {
-            _object.Remove(p);
-            return c.SaveChanges();
+            var deletedEntity = c.Entry(p);
+            deletedEntity.State = EntityState.Deleted;
+            c.SaveChanges();
         }
 
         public T Find(Expression<Func<T, bool>> filter)
@@ -30,15 +31,11 @@ namespace DataAccessLayer.Concrete
             return _object.FirstOrDefault(filter);
         }
 
-        public T GetById(int id)
+        public void Insert(T p)
         {
-            return _object.Find(id);
-        }
-
-        public int Insert(T p)
-        {
-            _object.Add(p);
-            return c.SaveChanges();
+            var addedEntity = c.Entry(p);
+            addedEntity.State = EntityState.Added;
+            c.SaveChanges();
         }
 
         public List<T> List()
@@ -46,9 +43,16 @@ namespace DataAccessLayer.Concrete
             return _object.ToList();
         }
 
-        public int Update(T p)
+        public void Update(T p)
         {
-            return c.SaveChanges();
+            var updatedEntity = c.Entry(p);
+            updatedEntity.State = EntityState.Modified;
+            c.SaveChanges();
+        }
+
+        public List<T> List(Expression<Func<T, bool>> filter)
+        {
+            return _object.Where(filter).ToList();
         }
     }
 }

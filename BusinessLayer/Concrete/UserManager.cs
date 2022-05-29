@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Concrete;
+﻿using BusinessLayer.Abstract;
+using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,21 +10,18 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
-    public class UserManager
+    public class UserManager : IUserService
     {
+        IUserDal _userDal;
+        public UserManager(IUserDal userDal)
+        {
+            _userDal = userDal;
+        }
+
         Repository<User> repo = new Repository<User>();
         public List<User> GetAll()
         {
             return repo.List();
-        }
-
-        public int AddUserBL(User u)
-        {
-            if (false)  // TODO : filter // !u.Mail.Contains("@")
-            {
-                return -1;
-            }
-            return repo.Insert(u);
         }
 
         public User FindUser(int id)
@@ -30,29 +29,35 @@ namespace BusinessLayer.Concrete
             return repo.Find(x => x.Id == id);
         }
 
-        public int EditUserBL(User u)
-        {
-            User _user = repo.Find(x => x.Id == u.Id);
-            if (false)  // TODO : filter
-            {
-                return -1;
-            }
-
-            _user.Username = u.Username;
-            _user.Password = u.Password;
-            _user.Name = u.Name;
-            _user.Surname = u.Surname;
-            _user.Mail = u.Mail;
-            _user.PhoneNumber = u.PhoneNumber;
-            _user.Role = u.Role;
-
-            return repo.Update(_user);
-        }
-
-        public int DeleteUser(int id)
+        public void DeleteUser(int id)
         {
             User u = repo.Find(x => x.Id == id);
-            return repo.Delete(u);
+            repo.Delete(u);
+        }
+
+        public List<User> GetList()
+        {
+            return _userDal.List();
+        }
+
+        public void AddUser(User user)
+        {
+            _userDal.Insert(user);
+        }
+
+        public User GetUserByUsername(string username)
+        {
+            return _userDal.Find(x => x.Username == username);
+        }
+
+        public void DeleteUser(User user)
+        {
+            _userDal.Delete(user);
+        }
+
+        public void UpdateUser(User user)
+        {
+            _userDal.Update(user);
         }
     }
 }
