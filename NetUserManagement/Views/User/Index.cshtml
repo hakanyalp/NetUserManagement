@@ -37,9 +37,9 @@
                                 <div class="card-footer">
                                     <div class="text-right">
 
-                                        <a href="/User/DeleteUser/@item.Id" class="btn btn-sm btn-danger">
+                                        <button onclick="DeleteUser(@item.Id)" class="btn btn-sm btn-danger">
                                             <i class="fas fa-eraser"></i> Sil
-                                        </a>
+                                        </button>
                                         <a href="/User/EditUser/@item.Id" class="btn btn-sm btn-primary">
                                             <i class="fas fa-user"></i> Profili Düzenle
                                         </a>
@@ -56,3 +56,5 @@
 </section>
 <!-- /.content -->
 <a href="/User/AddUser/" class="btn btn-primary" style="margin-bottom:20px; margin-top:10px">Yeni Kullanıcı Girişi</a>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

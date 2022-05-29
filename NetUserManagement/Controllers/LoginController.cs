@@ -16,6 +16,7 @@ namespace NetUserManagement.Controllers
         UserManager userManager = new UserManager(new EfUserDal());
         public LoginController()
         {
+            // Proje ilk çalıştığında admin kaydı atanması için oluşturuldu
             User u = userManager.GetUserByUsername("admin");
             if (u == null)
             {
@@ -26,7 +27,7 @@ namespace NetUserManagement.Controllers
                     Name = "Admin",
                     Surname = "System",
                     Mail = "admin@avansas.com",
-                    PhoneNumber = "2163657802",
+                    PhoneNumber = "02163657802",
                     Role = Role.Admin
                 });
             }

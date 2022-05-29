@@ -83,11 +83,11 @@ namespace NetUserManagement.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult DeleteUser(int id)
+        public JsonResult DeleteUser(int id)
         {
             User _user = userManager.FindUser(id);
             userManager.DeleteUser(_user);
-            return RedirectToAction("Index");
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult LogOut()
