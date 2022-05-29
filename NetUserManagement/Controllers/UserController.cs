@@ -25,13 +25,13 @@ namespace NetUserManagement.Controllers
             return View(users);
         }
 
-        [Authorize(Roles = "Admin")]    // TODO : enum
         [HttpGet]
         public ActionResult AddUser()
         {
+            User sessionUser = userManager.GetUserByUsername(Session["Username"].ToString());
+            ViewBag.UserRole = sessionUser.Role;
             return View();
         }
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult AddUser(User u)
         {
@@ -54,7 +54,7 @@ namespace NetUserManagement.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]    // TODO : enum
         [HttpGet]
         public ActionResult EditUser(int id)
         {
