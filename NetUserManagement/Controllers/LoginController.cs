@@ -51,7 +51,7 @@ namespace NetUserManagement.Controllers
             }
             else
             {
-                _user = userManager.GetUserByLogin(u.Username, u.Password);
+                _user = userManager.GetUserByUsername(u.Username);
                 if (_user != null)
                 {
                     return Json(new { Success = false, Error = "Şifreniz hatalıdır " }, JsonRequestBehavior.AllowGet);

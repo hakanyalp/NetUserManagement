@@ -23,9 +23,9 @@ namespace BusinessLayer.ValidationRules
             RuleFor(x => x.Mail).NotEmpty().NotNull().WithMessage("Mail boş bırakılamaz ")
                 .EmailAddress().WithMessage("Mail formatını kontrol ediniz ");
             RuleFor(x => x.PhoneNumber).NotEmpty().NotNull().WithMessage("Telefon numarası boş bırakılamaz ")
-                .MinimumLength(9).WithMessage("Telefon numarası en az 10 karakterli olmalıdır ")
-                .MaximumLength(11).WithMessage("Telefon numarası 18 karakteri geçemeze ")
-                .Matches(@"^(5(\d{9}))$").WithMessage("Başına 0 koymadan, boşluksuz şekilde giriniz ");
+                .MinimumLength(9).WithMessage("Telefon numarası en az 9 karakterli olmalıdır ")
+                .MaximumLength(11).WithMessage("Telefon numarası 1 karakteri geçemeze ")
+                .Matches(@"((\+90)|0)[.\- ]?[0-9][.\- ]?[0-9][.\- ]?[0-9]").WithMessage("Telefon numaranızı boşluksuz, sadece sayı olacak şekilde ve başına 0 ekleyerek giriş yapın ");
 
         }
     }
